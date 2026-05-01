@@ -1,14 +1,11 @@
 #!/bin/bash
+echo "=== Starting Ryu DDOS Controller - Dynamic Access Control ==="
 
-echo "=== CLEAN MININET ==="
-sudo mn -c
+# Activate Ryu virtual environment
+source ~/ryu-env/bin/activate
 
-echo "=== START RYU CONTROLLER ==="
-gnome-terminal -- bash -c "python -m ryu.cmd.manager ddos_controller.py; exec bash"
+# Vào thư mục dự án
+cd ~/sdn-ddos
 
-sleep 3
-
-echo "=== START MININET TOPOLOGY ==="
-sudo mn --topo single,3 --controller remote --switch ovsk,protocols=OpenFlow13
-
-echo "=== DONE ==="
+echo "Running DDOS Controller..."
+ryu-manager --verbose ddos_controller.py
